@@ -1,19 +1,19 @@
 <template>
-    <a-locale-provider :locale="zh_CN">
-        <div id="app">
-            <img src="./assets/logo.png" />
-            <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div id="app" class="h-full w-full flex flex-col overflow-hidden">
+        <Nav />
+        <div class="overflow-scroll h-full overflow-x-hidden">
+            <router-view />
         </div>
-    </a-locale-provider>
+    </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Nav from "@/components/Nav.vue";
 
 export default {
     name: "app",
     components: {
-        HelloWorld
+        Nav
     }
 };
 </script>
@@ -25,12 +25,16 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin: 0px;
     padding: 0px;
+    max-width: 767px;
 }
 
-html {
-    margin: 0px;
+html,
+body {
+    margin: 0px auto 0px auto;
     padding: 0px;
+    width: 100%;
+    height: 100%;
+    max-width: 767px;
 }
 </style>

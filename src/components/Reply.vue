@@ -1,14 +1,14 @@
 <template>
-    <div class="pt-3 pb-3 pl-4 pr-4 flex flex-row" @click="toReply">
-        <img :src="comment.user.avatar" class="rounded-full" />
+    <div class="pt-3 pb-3 pl-4 pr-4 flex flex-row">
+        <img :src="reply.user.avatar" class="rounded-full" />
 
         <div class="flex flex-col flex-grow pl-2">
             <div class="flex flex-row justify-between pt-1 pb-1">
-                <p class="text-blue-500">{{ comment.user.userName }}</p>
+                <p class="text-blue-500">{{ reply.user.userName }}</p>
 
                 <div class="flex flex-row content-start items-center">
                     <span class="font-mono mr-1">
-                        {{ comment.likes === 0 ? "" : comment.likes }}
+                        {{ reply.likes === 0 ? "" : reply.likes }}
                     </span>
 
                     <van-icon
@@ -40,20 +40,17 @@ import api from "api/";
 import { Toast } from "vant";
 
 export default {
-    name: "Comment",
+    name: "Reply",
     props: {
-        comment: {
+        reply: {
             id: Number,
+            cid: Number,
             content: String,
             likes: Number,
             user: {
                 avatar: String,
                 userName: String
             }
-        },
-        reply: {
-            type: Boolean,
-            default: false
         }
     },
     data() {
@@ -64,14 +61,14 @@ export default {
     },
     methods: {
         like() {
-            api.likeComment(
+            api.likeReply(
                 this.$route.params.id,
-                this.comment.id,
+                this.reply.cid,
+                this.reply.id,
                 "test token"
             ).then(res => {
                 if (!res.code) {
-                    // 这里直接修改了一下props，实际情况看实际的api吧，或者加个获取单个comment的api
-                    this.comment.likes++;
+                    this.reply.likes++;
                     this.isLiked = true;
                 } else {
                     Toast("Fail to like");
@@ -79,29 +76,23 @@ export default {
             });
         },
         removeLike() {
-            api.removeLike(
+            api.removeLikeForReply(
                 this.$route.params.id,
-                this.comment.id,
+                this.reply.cid,
+                this.reply.id,
                 "test token"
             ).then(res => {
                 if (!res.code) {
-                    this.comment.likes--;
+                    this.reply.likes--;
                     this.isLiked = false;
                 } else {
                     Toast("Fail to remove like");
                 }
             });
-        },
-        toReply(event) {
-            if (this.reply && event.target.tagName !== "I") {
-                this.$router.push({
-                    path: `/news/${this.$route.params.id}/comment/${this.comment.id}`
-                });
-            }
         }
     },
     mounted() {
-        this.paras = this.comment.content.split("\n");
+        this.paras = this.reply.content.split("\n");
     }
 };
 </script>

@@ -5,7 +5,7 @@
                 <van-icon name="setting" size="18" />
             </template>
             <template #right v-if="isHome">
-                <van-icon name="manager" size="18" />
+                <van-icon :name="rightIcon" size="18" @click="gotoUserCenter" />
             </template>
         </van-nav-bar>
     </div>
@@ -17,11 +17,24 @@ export default {
     computed: {
         isHome() {
             return this.$route.name == "Home";
+        },
+        isLogin() {
+            return this.$store.getters.isLogin;
+        },
+        rightIcon() {
+            if (this.isLogin) {
+                return this.$store.getters.getAvatar;
+            } else {
+                return "manager";
+            }
         }
     },
     methods: {
         goBack() {
             this.$router.go(-1);
+        },
+        gotoUserCenter() {
+            this.$router.push({ path: "/center" });
         }
     }
 };

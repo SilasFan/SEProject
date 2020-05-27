@@ -11,8 +11,26 @@ const routes = [
         component: Home
     },
     {
+        name: "news",
         path: "/news/:id",
         component: () => import("@/views/News.vue")
+    },
+    {
+        path: "/news/:id/comment",
+        component: () => import("@/views/NewsComment.vue")
+    },
+    {
+        path: "/news/:id/comment/:cid",
+        name: "reply",
+        component: () => import("@/views/CommentReplies.vue")
+    },
+    {
+        path: "/center",
+        component: () => import("@/views/UserCenter.vue")
+    },
+    {
+        path: "/login",
+        component: () => import("@/views/LoginOrRegister.vue")
     }
 ];
 

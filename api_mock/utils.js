@@ -16,4 +16,29 @@ export class result {
     }
 }
 
+export class comment {
+    constructor(id, cid) {
+        this.id = cid;
+        this.content = `comment test: No.${cid} from ${id}`;
+        this.user = {
+            avatar: "/img/avatar.png",
+            userName: "test"
+        };
+        this.likes = Math.floor(Math.random() * 3000);
+    }
+}
+
+export class reply {
+    constructor(id, cid, rid) {
+        this.id = rid;
+        this.cid = cid;
+        this.content = `reply test: No.${rid} from comment ${cid} in ${id}`;
+        this.user = {
+            avatar: "/img/avatar.png",
+            userName: "test"
+        };
+        this.likes = Math.floor(Math.random() * 3000);
+    }
+}
+
 export default mock;

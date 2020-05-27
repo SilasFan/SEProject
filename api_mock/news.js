@@ -1,4 +1,4 @@
-import { result } from "./utils";
+import { result, comment, reply } from "./utils";
 
 export function getNewsList(category, page, count) {
     let newsList = [];
@@ -27,16 +27,38 @@ export function getNewsContent(id) {
 export function getHotComments(id, num) {
     const comments = [];
     for (let i = 0; i < num; i++) {
-        comments.push({
-            id: i,
-            content: `comment test: No.${i} from ${id}`,
-            user: {
-                avatar: "/img/avatar.png",
-                userName: "test"
-            },
-            likes: Math.floor(Math.random() * 3000)
-        });
+        comments.push(new comment(id, i));
+    }
+    comments.sort((a, b) => b.likes - a.likes);
+
+    return new result(0, comments, "");
+}
+
+export function getAllComments(id, sortBy) {
+    const num = Math.floor(Math.random() * 40);
+    const comments = [];
+    for (let i = 0; i < num; i++) {
+        comments.push(new comment(id, i));
+    }
+
+    // sort
+    if (sortBy === "likes") {
+        comments.sort((a, b) => b.likes - a.likes);
     }
 
     return new result(0, comments, "");
+}
+
+export function getComment(id, cid) {
+    return new result(0, new comment(id, cid), "");
+}
+
+export function getReplies(id, cid) {
+    const num = Math.floor(Math.random() * 40);
+    const replies = [];
+    for (let i = 0; i < num; i++) {
+        replies.push(new reply(id, cid, i));
+    }
+
+    return new result(0, replies, "");
 }

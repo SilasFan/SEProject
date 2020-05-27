@@ -15,7 +15,12 @@ import {
     PullRefresh,
     Divider,
     ImagePreview,
-    Toast
+    Toast,
+    Notify,
+    Cell,
+    Field,
+    Button,
+    Dialog
 } from "vant";
 
 Vue.use(NavBar);
@@ -28,6 +33,11 @@ Vue.use(PullRefresh);
 Vue.use(Divider);
 Vue.use(ImagePreview);
 Vue.use(Toast);
+Vue.use(Notify);
+Vue.use(Cell);
+Vue.use(Field);
+Vue.use(Button);
+Vue.use(Dialog);
 
 Vue.config.productionTip = false;
 

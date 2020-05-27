@@ -7,22 +7,32 @@ export default new Vuex.Store({
     state: {
         currentUser: {
             uid: "",
-            nickName: "",
-            avater: ""
+            userName: "",
+            avatar: ""
         },
-        currentNewsTitle: ""
+        token: ""
     },
     getters: {
-        navTitle: state => {
-            if (state.currentNewsTitle.length > 10) {
-                return state.currentNewsTitle.slice(0, 9);
-            }
-            return state.currentNewsTitle;
-        }
+        getToken: state => state.token,
+        getAvatar: state => state.currentUser.avatar,
+        getUserName: state => state.currentUser.userName,
+        isLogin: state => state.token !== ""
     },
     mutations: {
-        setNewsTitle(state, title) {
-            state.currentNewsTitle = title;
+        setToken(state, newToken) {
+            state.token = newToken;
+        },
+        setUser(state, user) {
+            state.currentUser = user;
+        },
+        logout(state) {
+            // 待实现请求退出登录
+            state.token = "";
+            state.currentUser = {
+                uid: "",
+                userName: "",
+                avatar: ""
+            };
         }
     },
     actions: {},

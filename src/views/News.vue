@@ -20,7 +20,12 @@
 
         <hr class="text-gray-400" />
 
-        <p class="text-sm text-blue-400 pt-1 mb-8 cursor-pointer">所有评论</p>
+        <router-link
+            class="text-sm text-blue-400 pt-1 mb-8 cursor-pointer"
+            :to="commentLink"
+        >
+            所有评论
+        </router-link>
     </div>
 </template>
 
@@ -45,21 +50,29 @@ export default {
             hotComments: []
         };
     },
+    computed: {
+        commentLink() {
+            return `/news/${this.$route.params.id}/comment`;
+        }
+    },
     methods: {
         putInImageView() {
             const content = document.getElementById("newsContent");
+            const imgs = content.getElementsByTagName("img");
+            const srcs = [];
+            for (let i = 0; i < imgs.length; i++) {
+                srcs.push(imgs[i].src);
+            }
             content.onclick = function(event) {
                 let target = event.target;
                 if (target.tagName.toLowerCase() === "img") {
-                    const src = target.src;
                     ImagePreview({
-                        images: [src],
-                        showIndex: false,
+                        images: srcs,
+                        showIndex: true,
                         closeable: true
                     });
                 }
             };
-            return 0;
         }
     },
     beforeMount() {

@@ -7,9 +7,10 @@ import {
     getComment,
     getReplies,
     addComment,
-    addReply
+    addReply,
+    favoriteNews
 } from "./news";
-import { loginOrRegister, authCode } from "./user";
+import { loginOrRegister, authCode, getMyComment, getMyFavorite } from "./user";
 
 const api = {
     // 获取首页新闻列表
@@ -67,7 +68,16 @@ const api = {
 
     // 添加回复
     addReply: (newsID, commentID, reply, token) =>
-        Mock(addReply(newsID, commentID, reply, token))
+        Mock(addReply(newsID, commentID, reply, token)),
+
+    // 收藏新闻
+    favoriteNews: (newsID, token) => Mock(favoriteNews(newsID, token)),
+
+    // 获取我的评论
+    getMyComment: token => Mock(getMyComment(token)),
+
+    // 获取我的收藏
+    getMyFavorite: token => Mock(getMyFavorite(token))
 };
 
 export default api;

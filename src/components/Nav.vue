@@ -4,14 +4,28 @@
             <template #left v-if="isHome">
                 <van-icon name="setting" size="18" />
             </template>
-            <template #right v-if="isHome">
-                <van-icon :name="rightIcon" size="18" @click="gotoUserCenter" />
+            <template #right>
+                <van-icon
+                    :name="rightIcon"
+                    size="18"
+                    @click="gotoUserCenter"
+                    v-if="isHome"
+                />
+                <van-icon
+                    name="star-o"
+                    size="18"
+                    @click="favoriteNews"
+                    v-if="isNews"
+                />
             </template>
         </van-nav-bar>
     </div>
 </template>
 
 <script>
+import api from "api/";
+import { Toast } from "vant";
+
 export default {
     name: "Nav",
     computed: {
@@ -27,6 +41,10 @@ export default {
             } else {
                 return "manager";
             }
+        },
+
+        isNews() {
+            return this.$route.name === "news";
         }
     },
     methods: {
@@ -35,6 +53,18 @@ export default {
         },
         gotoUserCenter() {
             this.$router.push({ path: "/center" });
+        },
+        favoriteNews() {
+            api.favoriteNews(
+                this.$route.params.id,
+                this.$store.getters.getToken
+            ).then(res => {
+                if (!res.code) {
+                    Toast("收藏成功！");
+                } else {
+                    Toast("网络错误！");
+                }
+            });
         }
     }
 };

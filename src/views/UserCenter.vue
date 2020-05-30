@@ -6,9 +6,15 @@
             </template>
         </van-cell>
 
-        <van-cell title="我的评论" is-link class="mt-8" icon="chat-o" />
+        <van-cell
+            title="我的评论"
+            is-link
+            class="mt-8"
+            icon="chat-o"
+            to="/mycomment"
+        />
         <van-cell title="我的点赞" is-link icon="like-o" />
-        <van-cell title="我的收藏" is-link icon="star-o" />
+        <van-cell title="我的收藏" is-link icon="star-o" to="/myfavorite" />
 
         <van-cell title="使用报告" is-link class="mt-8" icon="newspaper-o" />
 

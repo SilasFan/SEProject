@@ -31,6 +31,14 @@ const routes = [
     {
         path: "/login",
         component: () => import("@/views/LoginOrRegister.vue")
+    },
+    {
+        path: "/mycomment",
+        component: () => import("@/views/MyComment.vue")
+    },
+    {
+        path: "/myfavorite",
+        component: () => import("@/views/MyFavorite.vue")
     }
 ];
 

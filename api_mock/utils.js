@@ -18,6 +18,7 @@ export class result {
 
 export class comment {
     constructor(id, cid) {
+        this.nid = id;
         this.id = cid;
         this.content = `comment test: No.${cid} from ${id}`;
         this.user = {
@@ -32,6 +33,7 @@ export class reply {
     constructor(id, cid, rid) {
         this.id = rid;
         this.cid = cid;
+        this.nid = id;
         this.content = `reply test: No.${rid} from comment ${cid} in ${id}`;
         this.user = {
             avatar: "/img/avatar.png",

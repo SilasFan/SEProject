@@ -70,3 +70,7 @@ export function addComment(newsID, comment, token) {
 export function addReply(newsID, commentID, reply, token) {
     return new result(0, newsID + commentID + reply + token, "");
 }
+
+export function favoriteNews(newsID, token) {
+    return new result(0, null, newsID + token);
+}

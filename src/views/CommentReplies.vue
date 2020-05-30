@@ -12,6 +12,28 @@
         <hr />
 
         <p class="text-sm pt-1 pb-4">没有更多了...</p>
+
+        <van-field
+            v-model="message"
+            rows="1"
+            autosize
+            type="textarea"
+            placeholder="请输入留言"
+            class="fixed bottom-0"
+            v-if="isLogin"
+        >
+            <template #button>
+                <van-button
+                    size="small"
+                    plain
+                    type="info"
+                    @click="addReply"
+                    :disabled="message.length === 0"
+                >
+                    回复
+                </van-button>
+            </template>
+        </van-field>
     </div>
 </template>
 
@@ -19,7 +41,7 @@
 import api from "api/";
 import Comment from "@/components/Comment.vue";
 import Reply from "@/components/Reply.vue";
-import { Toast } from "vant";
+import { Toast, Notify } from "vant";
 
 export default {
     name: "CommentReplies",
@@ -31,6 +53,7 @@ export default {
         return {
             comment: {},
             replies: [],
+            message: "",
 
             // 辅助渲染评论
             ready: false
@@ -42,6 +65,10 @@ export default {
         },
         commentID() {
             return Number(this.$route.params.cid);
+        },
+
+        isLogin() {
+            return this.$store.getters.isLogin;
         }
     },
     methods: {
@@ -64,11 +91,36 @@ export default {
                     Toast("Fail to get replies");
                 }
             });
+        },
+
+        addReply() {
+            api.addReply(
+                this.$route.params.id,
+                this.$route.params.cid,
+                this.message,
+                this.$store.getters.getToken
+            ).then(res => {
+                if (!res.code) {
+                    Notify({ type: "success", message: "评论成功！" });
+                    this.getAllReplies();
+                } else {
+                    Notify({ type: "danger", message: "网络错误！" });
+                }
+            });
         }
     },
     beforeMount() {
         this.getCurrentComment();
         this.getAllReplies();
+    },
+    mounted() {
+        window.scrollTo(0, 0);
     }
 };
 </script>
+
+<style scoped>
+.van-button--info {
+    border: none !important;
+}
+</style>

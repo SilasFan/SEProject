@@ -62,3 +62,11 @@ export function getReplies(id, cid) {
 
     return new result(0, replies, "");
 }
+
+export function addComment(newsID, comment, token) {
+    return new result(0, comment + newsID + token, "");
+}
+
+export function addReply(newsID, commentID, reply, token) {
+    return new result(0, newsID + commentID + reply + token, "");
+}

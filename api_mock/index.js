@@ -5,7 +5,9 @@ import {
     getHotComments,
     getAllComments,
     getComment,
-    getReplies
+    getReplies,
+    addComment,
+    addReply
 } from "./news";
 import { loginOrRegister, authCode } from "./user";
 
@@ -57,7 +59,15 @@ const api = {
         Mock(loginOrRegister(email, passwd), null),
 
     // 注册验证码验证
-    authCode: authcode => Mock(authCode(authcode), null)
+    authCode: authcode => Mock(authCode(authcode), null),
+
+    // 添加评论
+    addComment: (newsID, comment, token) =>
+        Mock(addComment(newsID, comment, token)),
+
+    // 添加回复
+    addReply: (newsID, commentID, reply, token) =>
+        Mock(addReply(newsID, commentID, reply, token))
 };
 
 export default api;

@@ -53,18 +53,23 @@ export default {
     },
     methods: {
         login() {
-            api.loginOrRegister(this.email, this.passwd).then(res => {
-                if (!res.code) {
-                    this.$store.commit("setToken", res.data.token);
-                    this.$store.commit("setUser", res.data.user);
-                    this.$router.go(-1);
-                } else if (res.code === 2) {
-                    this.show = true;
-                } else {
-                    return 1;
-                }
-            });
+            if (this.emailAndPasswdMatch()) {
+                api.loginOrRegister(this.email, this.passwd).then(res => {
+                    if (!res.code) {
+                        this.$store.commit("setToken", res.data.token);
+                        this.$store.commit("setUser", res.data.user);
+                        this.$router.go(-1);
+                    } else if (res.code === 2) {
+                        this.show = true;
+                    } else {
+                        return 1;
+                    }
+                });
+            } else {
+                Notify({ type: "warning", message: "邮箱或密码不符合格式！" });
+            }
         },
+
         registerAuth(action, done) {
             if (action === "confirm") {
                 api.authCode(this.authCode).then(res => {
@@ -84,6 +89,12 @@ export default {
             } else {
                 done();
             }
+        },
+
+        emailAndPasswdMatch() {
+            const emailReg = /^([a-zA-Z]|[0-9])(\w)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,5})$/;
+            const passwdReg = /^[a-zA-Z]|[0-9]{5,15}$/;
+            return emailReg.test(this.email) && passwdReg.test(this.passwd);
         }
     }
 };

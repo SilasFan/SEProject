@@ -5,7 +5,7 @@
         </h2>
         <p class="text-left pl-4 pb-4 font-serif">{{ newsContent.author }}</p>
 
-        <div id="newsContent"></div>
+        <div id="newsContent" :class="fontSizeClass"></div>
 
         <p class="text-left text-sm bg-gray-100 pt-1 pb-1 pl-4 mb-2 mt-8">
             热门评论
@@ -53,6 +53,19 @@ export default {
     computed: {
         commentLink() {
             return `/news/${this.$route.params.id}/comment`;
+        },
+        fontSize() {
+            return this.$store.getters.paraFontSize;
+        },
+        fontSizeClass() {
+            let fClass =
+                this.fontSize === "large"
+                    ? "text-lg"
+                    : this.fontSize === "medium"
+                    ? "text-base"
+                    : "text-sm";
+
+            return fClass;
         }
     },
     methods: {

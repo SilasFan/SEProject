@@ -2,7 +2,7 @@ import { result, comment } from "./utils";
 
 // 暂时定code=2为注册返回，注意
 export function loginOrRegister(email, passwd) {
-    if (email === "fetter@163.com") {
+    if (email !== "fetter@163.com") {
         const data = {
             token: generateToken(),
             user: {

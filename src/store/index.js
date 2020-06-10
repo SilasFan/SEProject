@@ -10,13 +10,17 @@ export default new Vuex.Store({
             userName: "",
             avatar: ""
         },
-        token: ""
+        token: "",
+        nightMode: false,
+        paraFontSize: "medium"
     },
     getters: {
         getToken: state => state.token,
         getAvatar: state => state.currentUser.avatar,
         getUserName: state => state.currentUser.userName,
-        isLogin: state => state.token !== ""
+        isLogin: state => state.token !== "",
+        nightMode: state => state.nightMode,
+        paraFontSize: state => state.paraFontSize
     },
     mutations: {
         setToken(state, newToken) {
@@ -33,6 +37,18 @@ export default new Vuex.Store({
                 userName: "",
                 avatar: ""
             };
+        },
+        changeNightMode(state) {
+            state.nightMode = !state.nightMode;
+        },
+        changeFontSize(state, size) {
+            state.paraFontSize = size;
+        },
+        setAvatar(state, avatar) {
+            state.currentUser.avatar = avatar;
+        },
+        setUserName(state, userName) {
+            state.currentUser.userName = userName;
         }
     },
     actions: {},

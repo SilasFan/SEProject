@@ -1,8 +1,19 @@
 <template>
     <div>
-        <van-nav-bar title="APPNAME" :left-arrow="!isHome" @click-left="goBack">
-            <template #left v-if="isHome">
-                <van-icon name="setting" size="18" />
+        <van-nav-bar title="APPNAME">
+            <template #left>
+                <van-icon
+                    v-if="isHome"
+                    name="setting"
+                    size="18"
+                    @click="gotoSettings"
+                />
+                <van-icon
+                    v-if="!isHome"
+                    name="arrow-left"
+                    size="18"
+                    @click="goBack"
+                />
             </template>
             <template #right>
                 <van-icon
@@ -30,7 +41,7 @@ export default {
     name: "Nav",
     computed: {
         isHome() {
-            return this.$route.name == "Home";
+            return this.$route.name === "Home";
         },
         isLogin() {
             return this.$store.getters.isLogin;
@@ -53,6 +64,9 @@ export default {
         },
         gotoUserCenter() {
             this.$router.push({ path: "/center" });
+        },
+        gotoSettings() {
+            this.$router.push({ path: "/settings" });
         },
         favoriteNews() {
             api.favoriteNews(

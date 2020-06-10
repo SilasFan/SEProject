@@ -20,7 +20,8 @@ import {
     Cell,
     Field,
     Button,
-    Dialog
+    Dialog,
+    ActionSheet
 } from "vant";
 
 Vue.use(NavBar);
@@ -38,6 +39,7 @@ Vue.use(Cell);
 Vue.use(Field);
 Vue.use(Button);
 Vue.use(Dialog);
+Vue.use(ActionSheet);
 
 Vue.config.productionTip = false;
 

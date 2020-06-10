@@ -7,5 +7,9 @@ module.exports = {
                 api: path.resolve(__dirname, "api_mock")
             }
         }
+    },
+
+    css: {
+        extract: false
     }
 };

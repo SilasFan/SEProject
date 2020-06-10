@@ -38,6 +38,8 @@ export default {
         login() {
             if (!this.isLogin) {
                 this.$router.push({ path: "login" });
+            } else {
+                this.$router.push({ path: "reviseinfo" });
             }
         },
         logout() {

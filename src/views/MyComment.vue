@@ -11,7 +11,9 @@
                 <p class="ml-2">{{ comment.user.userName }}</p>
             </div>
 
-            <p class="pl-4 pr-4 pt-2 pb-2">{{ comment.content }}</p>
+            <p class="pl-4 pr-4 pt-2 pb-2 van-ellipsis">
+                {{ comment.content }}
+            </p>
             <hr />
         </div>
     </div>

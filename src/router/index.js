@@ -39,6 +39,14 @@ const routes = [
     {
         path: "/myfavorite",
         component: () => import("@/views/MyFavorite.vue")
+    },
+    {
+        path: "/settings",
+        component: () => import("@/views/Settings.vue")
+    },
+    {
+        path: "/reviseinfo",
+        component: () => import("@/views/ReviseUserInfo.vue")
     }
 ];
 

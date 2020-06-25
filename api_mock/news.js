@@ -2,7 +2,7 @@ import { result, comment, reply } from "./utils";
 
 export function getNewsList(category, page, count) {
     let newsList = [];
-    const code = page * count >= 30 ? 0 : 2;
+    const code = page * count >= 5 ? 0 : 2;
     for (let i = 0; i < count; i++) {
         newsList.push({
             title: category + page * count + i,

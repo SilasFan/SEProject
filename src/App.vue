@@ -35,7 +35,7 @@ export default {
     },
     beforeMount() {
         const state = localStorage.getItem("state");
-        this.$store.state = JSON.parse(state);
+        state && this.$store.replaceState(JSON.parse(state));
     },
     beforeDestroy() {
         localStorage.setItem("state", JSON.stringify(this.$store.state));
